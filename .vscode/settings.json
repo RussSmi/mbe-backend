@@ -1,0 +1,13 @@
+{
+    "azureLogicAppsStandard.deploySubpath": "logicapps",
+    "azureLogicAppsStandard.projectLanguage": "JavaScript",
+    "azureLogicAppsStandard.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.suppressProject": true,
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\rusmith\\.azurelogicapps\\dependencies\\DotNetSDK;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "C:\\Users\\rusmith\\.azurelogicapps\\dependencies\\DotNetSDK"
+    ]
+}

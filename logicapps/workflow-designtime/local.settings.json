@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "APP_KIND": "workflowapp",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "ProjectDirectoryPath": "c:\\repos\\RussSmi\\multi-backends\\mbe-backend\\logicapps",
+    "AzureWebJobsSecretStorageType": "Files"
+  }
+}

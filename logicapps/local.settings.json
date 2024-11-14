@@ -1,0 +1,19 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "APP_KIND": "workflowapp",
+    "ProjectDirectoryPath": "c:\\repos\\RussSmi\\multi-backends\\mbe-backend\\logicapps",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "WORKFLOWS_SUBSCRIPTION_ID": "",
+    "AzureBlob_blobStorageEndpoint": "https://clistrgdevsfdtj5c53l3cw.blob.core.windows.net/",
+    "DEV_CONTAINER": "dev",
+    "STAGING_CONTAINER": "staging",
+    "SIT_CONTAINER": "sit",
+    "CFT2_CONTAINER": "cft2",
+    "PROD_CONTAINER": "production",
+    "TRAIN_CONTAINER": "training",
+    "UAT_CONTAINER": "uat",
+    "DR_CONTAINER": "drec"
+  }
+}
