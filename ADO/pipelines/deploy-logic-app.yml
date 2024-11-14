@@ -16,7 +16,7 @@ trigger: none
 resources:
   pipelines:
   - pipeline: package-logic-app-mbe-backend
-    source: package-logic-app
+    source: package-logic-app-mbe-backend
 stages:
   - stage: Dev
     jobs:
