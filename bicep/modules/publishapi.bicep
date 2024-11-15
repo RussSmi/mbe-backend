@@ -13,7 +13,7 @@ resource apiManagementService 'Microsoft.ApiManagement/service@2023-03-01-previe
 
 resource siteLogicApp 'Microsoft.Web/sites@2023-12-01' existing = {
   name: logicAppName
-  scope: resourceGroup()
+  scope: resourceGroup('rg-mbeback-test-uks')
 }
 
 var workflowUrl = listCallbackUrl('${siteLogicApp.id}/hostruntime/runtime/webhooks/workflow/api/management/workflows/${workflowName}/triggers/When_a_HTTP_request_is_received', '2023-12-01').value
