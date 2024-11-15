@@ -23,7 +23,7 @@ resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' 
   name: '${serviceId}-${backendName}-backend'
   parent: apiManagementService
   properties: {
-    url: '${urlparts[0]}/api'
+    url: '${urlparts[0]}api'
     protocol: 'http'
     description: 'Backend for ${workflowName}'
     type: 'Single'
@@ -65,6 +65,9 @@ resource api 'Microsoft.ApiManagement/service/apis@2023-03-01-preview' = {
       'https'
     ]
   }
+  dependsOn: [
+    backends
+  ]
 }
 
 resource operation 'Microsoft.ApiManagement/service/apis/operations@2023-09-01-preview' = {
@@ -82,7 +85,7 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2023-09-01-p
   }
 }
 
-var xmlPolicyContent = replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', backends.id)
+var xmlPolicyContent = replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', 'backends/${backends.name}')
 // Add xml policy to the operation
 resource xmlPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2023-09-01-preview' = {
   parent: operation
