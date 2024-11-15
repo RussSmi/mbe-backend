@@ -19,6 +19,7 @@ param backendNames object = {
 
 module publishapi 'modules/publishapi.bicep' = [for backend in backendNames.backends: {
   name: 'api-deploy-${backend.name}-${env}'
+  scope: resourceGroup('rg-apim-aisv31-dev')
   params: {
     serviceId: serviceId
     apimName: apimName

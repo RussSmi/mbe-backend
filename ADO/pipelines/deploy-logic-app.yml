@@ -41,7 +41,7 @@ stages:
                 ConnectedServiceName: '${{ parameters.azureServiceConnection }}'
                 SubscriptionName: '8af392db-423c-49d9-8c34-cdafbe702315' #This var is from the library
                 action: 'Create Or Update Resource Group'
-                resourceGroupName: 'rg-mbeback-test-uks' 
+                resourceGroupName: 'rg-apim-aisv31-dev' 
                 location: '$(location)'
                 templateLocation: 'Linked artifact'
                 csmFile: '$(templateFile)'
