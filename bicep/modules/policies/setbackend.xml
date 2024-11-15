@@ -1,7 +1,8 @@
 <policies>
     <inbound>
-        <set-backend-service id="***id***" backend-id="***backendid***" />
         <base />
+        <set-backend-service id="***id***" backend-id="***backendid***" />
+        <rewrite-uri template="@($"***urlpart2***")" copy-unmatched-params="false" />
     </inbound>
     <backend>
         <retry condition="@(context.Response.StatusCode == 429)" count="2" interval="1" first-fast-retry="true">
