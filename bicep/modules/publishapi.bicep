@@ -85,7 +85,7 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2023-09-01-p
   }
 }
 
-var xmlPolicyContent = replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', 'backends/${backends.name}')
+var xmlPolicyContent = replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', '/backends/${backends.name}')
 // Add xml policy to the operation
 resource xmlPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2023-09-01-preview' = {
   parent: operation
