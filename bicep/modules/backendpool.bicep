@@ -7,14 +7,12 @@ resource apiManagementService 'Microsoft.ApiManagement/service@2023-03-01-previe
   scope: resourceGroup()
 }
 
-resource mbebpool 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' = {
+resource mbebpool 'Microsoft.ApiManagement/service/backends@2024-05-01' = {
   name: '${serviceId}pool'
   parent: apiManagementService
   properties: {
     description: 'Load balance openai instances'
     type: 'Pool'
-    protocol: 'http'
-    url: 'https://' //Not required for pool type
     pool: {
       services: [
         {
