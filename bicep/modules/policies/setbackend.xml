@@ -1,0 +1,17 @@
+<policies>
+    <inbound>
+        <set-backend-service id="***id***" backend-id="***backendid***" />
+        <base />
+    </inbound>
+    <backend>
+        <retry condition="@(context.Response.StatusCode == 429)" count="2" interval="1" first-fast-retry="true">
+            <forward-request />
+        </retry>
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

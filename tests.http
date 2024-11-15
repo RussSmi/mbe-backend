@@ -1,0 +1,32 @@
+###
+post https://la-mbebackend-dev.azurewebsites.net:443/api/backend-writeblob-dev/triggers/When_a_HTTP_request_is_received/invoke?api-version=2022-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=N261rUfHk228Xkewr4lz15RdLc3McIbG21K31gmY52w
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-14T13:28:00Z",
+    "Source Environment": "Dev",
+    "Target Environment": "Dev",
+    "Output Filename": "Dev.Results.json"
+}
+
+###
+post https://la-mbebackend-dev.azurewebsites.net:443/api/backend-writeblob-production/triggers/When_a_HTTP_request_is_received/invoke?api-version=2022-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=cxYl-XXf1flMXo383Kxequ_iGyVCt3VnRwDPyttB4ms
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-14T13:28:00Z",
+    "Source Environment": "Dev",
+    "Target Environment": "Production",
+    "Output Filename": "Production.Results.json"
+}
+
+###
+post https://la-mbebackend-dev.azurewebsites.net:443/api/backend-writeblob-drec/triggers/When_a_HTTP_request_is_received/invoke?api-version=2022-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=EZkNsjFue8YWrYOmKWFmZvSoimCo1Z39BkN3oLJdBDc
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-14T13:28:00Z",
+    "Source Environment": "Dev",
+    "Target Environment": "Production",
+    "Output Filename": "drec.Results.json"
+}

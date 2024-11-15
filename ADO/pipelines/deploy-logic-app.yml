@@ -7,10 +7,10 @@ variables:
   - template: ./global.yml
   - name: 'location'
     value: 'uksouth'
-  #- name: templateFile
-  #  value: '$(Build.SourcesDirectory)/bicep/apimlogicapp.bicep'
-  #- name: csmParametersFile
-  #  value: '$(Build.SourcesDirectory)/bicep/apimlogicapp.dev.bicepparam'
+  - name: templateFile
+    value: '$(Build.SourcesDirectory)/bicep/apibackendpool.bicep'
+  - name: csmParametersFile
+    value: '$(Build.SourcesDirectory)/bicep/apibackendpool.dev.bicepparam'
   - group: 'ais-connection-vars-dev'
 trigger: none
 resources:
@@ -35,3 +35,17 @@ stages:
                 artifactName: '$(artifactName)'
                 serviceConnectionName: $(connection)
                 logicAppBuildPipelineLabel: $(logicAppBuildPipelineLabel)
+            - task: AzureResourceManagerTemplateDeployment@3.243.1
+              inputs:
+                deploymentScope: 'Resource Group'
+                ConnectedServiceName: '${{ parameters.azureServiceConnection }}'
+                SubscriptionName: '8af392db-423c-49d9-8c34-cdafbe702315' #This var is from the library
+                action: 'Create Or Update Resource Group'
+                resourceGroupName: 'rg-mbeback-test-uks' 
+                location: '$(location)'
+                templateLocation: 'Linked artifact'
+                csmFile: '$(templateFile)'
+                csmParametersFile: '$(csmParametersFile)'
+                #overrideParameters: '-storageAccountType Standard_LRS'
+                deploymentMode: 'Incremental'
+                deploymentName: 'DeployPipelineTemplate'
