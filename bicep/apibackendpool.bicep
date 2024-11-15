@@ -33,6 +33,7 @@ module backendpool 'modules/backendpool.bicep' = {
   scope: resourceGroup('rg-apim-aisv31-dev')
    params: {
     apimName: apimName
+    serviceId: serviceId
   }
   dependsOn: [
     publishapi
