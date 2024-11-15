@@ -21,7 +21,7 @@ resource mbebpool 'Microsoft.ApiManagement/service/backends@2024-05-01' = {
           weight: 1
         }
         {
-          id: '/backends/${serviceId}-UAT-backend}'
+          id: '/backends/${serviceId}-UAT-backend'
           priority: 2
           weight: 1
         }
