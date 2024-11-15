@@ -86,7 +86,7 @@ var xmlPolicyContent = replace(loadTextContent('./policies/setbackend.xml'), '**
 // Add xml policy to the operation
 resource xmlPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2023-09-01-preview' = {
   parent: operation
-  name: 'xmlPolicy'
+  name: 'policy'
   properties: {
     format: 'xml'
     value: replace(xmlPolicyContent, '***Id***', 'Id-${serviceId}-${backendName}')
