@@ -6,6 +6,10 @@ param backendName string
 param env string = 'dev'
 param logicAppName string = 'la-${serviceId}-${env}'
 
+func replaceMultiple(input string, replacements { *: string }) string => reduce(
+  items(replacements), input, (cur, next) => replace(string(cur), next.key, next.value)
+  )
+
 resource apiManagementService 'Microsoft.ApiManagement/service@2023-03-01-preview' existing = {
   name: apimName
   scope: resourceGroup()
@@ -84,17 +88,25 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2023-09-01-p
     responses: []
   }
 }
-//"@($"***urlpart2***")"
 
-var xmlPolicyContent = replace(replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', backends.name),'***urlpart2***', '@($"${urlparts[1]}")')
+var xmlPolicyContent = loadTextContent('./policies/setbackend.xml')
+var replacedContent = replaceMultiple(xmlPolicyContent, {
+  '***backendid***': backends.name
+  '***urlpart2***': replace(urlparts[1], '&', '&amp;')
+  '***id***': 'Id-${serviceId}-${backendName}'
+  })
+
+//var xmlPolicyContent = replace(replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', backends.name),'***urlpart2***', '@($"${urlparts[1]}")')
 // Add xml policy to the operation
+
 resource xmlPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2023-09-01-preview' = {
   parent: operation
   name: 'policy'
   properties: {
     format: 'xml'
-    value: replace(xmlPolicyContent, '***id***', 'Id-${serviceId}-${backendName}')
+    value: replacedContent
   }
 }
 
+output xmlPolicyContent string = xmlPolicyContent
 

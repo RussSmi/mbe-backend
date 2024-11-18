@@ -1,9 +1,12 @@
 <policies>
-    <inbound>
-        <base />
+    <inbound>        
+        <set-header name="Content-Type" exists-action="override">
+            <value>application/json</value>
+        </set-header>
         <set-backend-service id="***id***" backend-id="***backendid***" />
-        <rewrite-uri template="***urlpart2***" copy-unmatched-params="false" />
-    </inbound>
+        <rewrite-uri template="***urlpart2***" copy-unmatched-params="false" />    
+        <base />
+    </inbound>        
     <backend>
         <retry condition="@(context.Response.StatusCode == 429)" count="2" interval="1" first-fast-retry="true">
             <forward-request />
