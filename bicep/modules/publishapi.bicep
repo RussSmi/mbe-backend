@@ -50,7 +50,7 @@ resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' 
             ]
           }
           name: '${serviceId}-${workflowName}BreakerRule'
-          tripDuration: 'PT10S'
+          tripDuration: 'PT1M'
         }
       ]
     } : null
@@ -91,7 +91,7 @@ resource operation 'Microsoft.ApiManagement/service/apis/operations@2023-09-01-p
 
 var xmlPolicyContent = loadTextContent('./policies/setbackend.xml')
 var replacedContent = replaceMultiple(xmlPolicyContent, {
-  '***backendid***': backends.name
+  '***backendid***': (backendName == 'Production' || backendName == 'DREC') ? '${serviceId}pool' : backends.name
   '***urlpart2***': replace(urlparts[1], '&', '&amp;')
   '***id***': 'Id-${serviceId}-${backendName}'
   })
