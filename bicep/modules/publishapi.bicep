@@ -31,7 +31,7 @@ resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' 
     protocol: 'http'
     description: 'Backend for ${workflowName}'
     type: 'Single'
-    circuitBreaker: (backendName == 'Production' || backendName == 'DR') ? {
+    circuitBreaker: (backendName == 'Production' || backendName == 'DREC') ? {
       rules: [
         {
           acceptRetryAfter: true

@@ -11,7 +11,7 @@ resource mbebpool 'Microsoft.ApiManagement/service/backends@2024-05-01' = {
   name: '${serviceId}pool'
   parent: apiManagementService
   properties: {
-    description: 'Load balance openai instances'
+    description: 'Load balance backend instances'
     type: 'Pool'
     pool: {
       services: [
