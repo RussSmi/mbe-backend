@@ -17,6 +17,19 @@
                     }
                 },
                 "runAfter": {}
+            },
+            "Response": {
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                    "statusCode": 200,
+                    "body": "Request uploaded to @{appsetting('DEV_CONTAINER')} container"
+                },
+                "runAfter": {
+                    "Upload_blob_to_storage_container": [
+                        "SUCCEEDED"
+                    ]
+                }
             }
         },
         "contentVersion": "1.0.0.0",
