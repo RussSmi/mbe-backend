@@ -11,6 +11,7 @@ resource mbebpool 'Microsoft.ApiManagement/service/backends@2024-05-01' = {
   name: '${serviceId}pool'
   parent: apiManagementService
   properties: {
+    title: '${serviceId}pool'
     description: 'Load balance backend instances'
     type: 'Pool'
     pool: {
@@ -23,7 +24,7 @@ resource mbebpool 'Microsoft.ApiManagement/service/backends@2024-05-01' = {
         {
           id: '/backends/${serviceId}-DREC-backend'
           priority: 2
-          weight: 1
+          weight: 2
         }
 
       ]
