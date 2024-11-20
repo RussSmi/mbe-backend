@@ -23,7 +23,7 @@
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
-                    "body": "Request uploaded to @{appsetting('DEV_CONTAINER')} container"
+                    "body": "Request uploaded to @{appsetting('STAGING_CONTAINER')} container"
                 },
                 "runAfter": {
                     "Upload_blob_to_storage_container": [
