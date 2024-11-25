@@ -186,6 +186,9 @@ resource siteLogicApp 'Microsoft.Web/sites@2023-01-01' = {
           name: 'AzureBlob_blobStorageEndpoint'
           value: backendStorageConnectionString
         }
+        {
+          name: 'PROD_RESPONSE_CODE', value: '500'
+        }
       ]
       use32BitWorkerProcess: true
     }

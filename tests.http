@@ -6,7 +6,7 @@ Content-Type: application/json
     "Request Date": "2024-11-14T13:28:00Z",
     "Source Environment": "Dev",
     "Target Environment": "Dev",
-    "Output Filename": "DevDirect.Results.json"
+    "Output Filename": "DevDirect1.Results.json"
 }
 
 ###
@@ -28,7 +28,7 @@ Content-Type: application/json
     "Request Date": "2024-11-14T13:28:00Z",
     "Source Environment": "Dev",
     "Target Environment": "Production",
-    "Output Filename": "drec.Results.json"
+    "Output Filename": "drec2.Results.json"
 }
 
 ###
@@ -39,7 +39,7 @@ Content-Type: application/json
     "Request Date": "2024-11-14T13:28:00Z",
     "Source Environment": "Dev",
     "Target Environment": "Dev",
-    "Output Filename": "ManualTest5.Results.json"
+    "Output Filename": "ManualTest7.Results.json"
 }   
 
 ###
@@ -73,4 +73,15 @@ Content-Type: application/json
     "Source Environment": "Dev",
     "Target Environment": "Dev",
     "Output Filename": "ManualCFT2-1.Results.json"
+} 
+
+###
+post https://apim-aisv31-dev.azure-api.net/DREC/
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-18T13:28:00Z",
+    "Source Environment": "Dev",
+    "Target Environment": "Dev",
+    "Output Filename": "ManualDREC1.Results.json"
 } 
