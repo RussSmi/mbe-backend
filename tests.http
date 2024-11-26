@@ -72,7 +72,31 @@ Content-Type: application/json
     "Request Date": "2024-11-18T13:28:00Z",
     "Source Environment": "Dev",
     "Target Environment": "Dev",
-    "Output Filename": "ManualCFT2-1.Results.json"
+    "Output Filename": "ManualCFT2-2.Results.json"
+} 
+
+
+
+###
+post https://la-mbebackend-dev.azurewebsites.net:443/api/backend-writeblob-cft2/triggers/When_a_HTTP_request_is_received/invoke?api-version=2022-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=4PAtP9RxthT0mVKeodAxtpZgwEJ8cAmFbLrVV9a69xs
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-18T13:28:00Z",
+    "Source Environment": "Dev",
+    "Target Environment": "Dev",
+    "Output Filename": "cft2.Results.json"
+} 
+
+###
+post https://apim-aisv31-dev.azure-api.net/Production/
+Content-Type: application/json
+
+{
+    "Request Date": "2024-11-18T13:28:00Z",
+    "Source Environment": "prod",
+    "Target Environment": "prod",
+    "Output Filename": "prod6.429.json"
 } 
 
 ###
@@ -83,5 +107,5 @@ Content-Type: application/json
     "Request Date": "2024-11-18T13:28:00Z",
     "Source Environment": "Dev",
     "Target Environment": "Dev",
-    "Output Filename": "ManualDREC1.Results.json"
+    "Output Filename": "drec2.429.json"
 } 

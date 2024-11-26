@@ -37,12 +37,8 @@ resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' 
           acceptRetryAfter: true
           failureCondition: {
             count: 1
-            interval: 'PT10S'
+            interval: 'PT1M'
             statusCodeRanges: [
-              {
-                min: 400
-                max: 429
-              }
               {
                 min: 500
                 max: 503
