@@ -21,13 +21,13 @@ resource siteLogicApp 'Microsoft.Web/sites@2023-12-01' existing = {
 }
 
 var workflowUrl = listCallbackUrl('${siteLogicApp.id}/hostruntime/runtime/webhooks/workflow/api/management/workflows/${workflowName}/triggers/When_a_HTTP_request_is_received', '2023-12-01').value
-var urlparts = split(workflowUrl, 'api/')
+var urlparts = split(workflowUrl, 'triggers/')
 
 resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' =  {
   name: '${serviceId}-${backendName}-backend'
   parent: apiManagementService
   properties: {
-    url: '${urlparts[0]}api'
+    url: '${urlparts[0]}triggers'
     protocol: 'http'
     description: 'Backend for ${workflowName}'
     type: 'Single'
@@ -92,9 +92,7 @@ var replacedContent = replaceMultiple(xmlPolicyContent, {
   '***id***': 'Id-${serviceId}-${backendName}'
   })
 
-//var xmlPolicyContent = replace(replace(loadTextContent('./policies/setbackend.xml'), '***backendid***', backends.name),'***urlpart2***', '@($"${urlparts[1]}")')
 // Add xml policy to the operation
-
 resource xmlPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2023-09-01-preview' = {
   parent: operation
   name: 'policy'
