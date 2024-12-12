@@ -21,7 +21,7 @@
                         "$top": 1000,
                         "resultFormat": "table"
                     },
-                    "query": "// Run query to see results.\nresources\n| where type =~ \"microsoft.storage/storageaccounts\" or type =~ \"microsoft.classicstorage/storageaccounts\"\n|project ['id']"
+                    "query": "\nresources\n| where type =~ \"microsoft.storage/storageaccounts\" or type =~ \"microsoft.classicstorage/storageaccounts\"\n|project ['id']"
                 },
                 "runAfter": {}
             },
@@ -54,62 +54,6 @@
                     "Parse_JSON_get_the_array": [
                         "Succeeded"
                     ]
-                }
-            },
-            "HTTP_Defender_AppServices": {
-                "type": "Http",
-                "inputs": {
-                    "uri": "https://management.azure.com/subscriptions/@{parameters('SubId')}/providers/Microsoft.Security/pricings/AppServices?api-version=2023-01-01",
-                    "method": "PUT",
-                    "body": {
-                        "properties": {
-                            "bundleName": "AppServices",
-                            "extensions": [],
-                            "pricingTier": "Free",
-                            "subPlan": null
-                        }
-                    },
-                    "authentication": {
-                        "type": "ManagedServiceIdentity"
-                    }
-                },
-                "runAfter": {
-                    "For_each": [
-                        "Succeeded"
-                    ]
-                },
-                "runtimeConfiguration": {
-                    "contentTransfer": {
-                        "transferMode": "Chunked"
-                    }
-                }
-            },
-            "HTTP_Defender_StorageAccounts": {
-                "type": "Http",
-                "inputs": {
-                    "uri": "https://management.azure.com/subscriptions/@{parameters('SubId')}/providers/Microsoft.Security/pricings/StorageAccounts?api-version=2023-01-01",
-                    "method": "PUT",
-                    "body": {
-                        "properties": {
-                            "bundleName": "StorageAccounts",
-                            "extensions": [],
-                            "pricingTier": "Free",
-                            "subPlan": null
-                        }
-                    },
-                    "authentication": {
-                        "type": "ManagedServiceIdentity"
-                    }
-                },
-                "runAfter": {
-                    "For_each": [
-                        "Succeeded"
-                    ]
-                },
-                "runtimeConfiguration": {
-                    "contentTransfer": {
-                        "transferMode": "Chunked"
-                    }
                 }
             },
             "HTTP_get_all_SA": {
