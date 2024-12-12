@@ -189,6 +189,9 @@ resource siteLogicApp 'Microsoft.Web/sites@2023-01-01' = {
         {
           name: 'PROD_RESPONSE_CODE', value: '500'
         }
+        {
+          name: 'RESPONSE_CODE', value: '200'
+        }
       ]
       use32BitWorkerProcess: true
     }

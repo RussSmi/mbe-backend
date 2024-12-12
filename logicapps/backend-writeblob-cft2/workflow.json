@@ -22,7 +22,7 @@
                 "type": "Response",
                 "kind": "Http",
                 "inputs": {
-                    "statusCode": "@appsetting('PROD_RESPONSE_CODE')",
+                    "statusCode": "@appsetting('RESPONSE_CODE')",
                     "body": "Request uploaded to @{appsetting('CFT2_CONTAINER')} container"
                 },
                 "runAfter": {

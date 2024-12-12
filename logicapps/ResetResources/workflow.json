@@ -1,0 +1,214 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "triggers": {
+            "Recurrence": {
+                "type": "Recurrence",
+                "recurrence": {
+                    "frequency": "Hour",
+                    "interval": 12
+                }
+            }
+        },
+        "actions": {
+            "Compose_Get_all_SA_query": {
+                "type": "Compose",
+                "inputs": {
+                    "options": {
+                        "$skip": 0,
+                        "$skipToken": "",
+                        "$top": 1000,
+                        "resultFormat": "table"
+                    },
+                    "query": "// Run query to see results.\nresources\n| where type =~ \"microsoft.storage/storageaccounts\" or type =~ \"microsoft.classicstorage/storageaccounts\"\n|project ['id']"
+                },
+                "runAfter": {}
+            },
+            "For_each": {
+                "type": "Foreach",
+                "foreach": "@body('Parse_JSON_get_the_array')?['data']?['rows']",
+                "actions": {
+                    "HTTP_SA_enable_key": {
+                        "type": "Http",
+                        "inputs": {
+                            "uri": "https://management.azure.com@{items('For_each')[0]}?api-version=2023-05-01",
+                            "method": "PATCH",
+                            "body": {
+                                "properties": {
+                                    "allowSharedKeyAccess": true
+                                }
+                            },
+                            "authentication": {
+                                "type": "ManagedServiceIdentity"
+                            }
+                        },
+                        "runtimeConfiguration": {
+                            "contentTransfer": {
+                                "transferMode": "Chunked"
+                            }
+                        }
+                    }
+                },
+                "runAfter": {
+                    "Parse_JSON_get_the_array": [
+                        "Succeeded"
+                    ]
+                }
+            },
+            "HTTP_Defender_AppServices": {
+                "type": "Http",
+                "inputs": {
+                    "uri": "https://management.azure.com/subscriptions/@{parameters('SubId')}/providers/Microsoft.Security/pricings/AppServices?api-version=2023-01-01",
+                    "method": "PUT",
+                    "body": {
+                        "properties": {
+                            "bundleName": "AppServices",
+                            "extensions": [],
+                            "pricingTier": "Free",
+                            "subPlan": null
+                        }
+                    },
+                    "authentication": {
+                        "type": "ManagedServiceIdentity"
+                    }
+                },
+                "runAfter": {
+                    "For_each": [
+                        "Succeeded"
+                    ]
+                },
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                }
+            },
+            "HTTP_Defender_StorageAccounts": {
+                "type": "Http",
+                "inputs": {
+                    "uri": "https://management.azure.com/subscriptions/@{parameters('SubId')}/providers/Microsoft.Security/pricings/StorageAccounts?api-version=2023-01-01",
+                    "method": "PUT",
+                    "body": {
+                        "properties": {
+                            "bundleName": "StorageAccounts",
+                            "extensions": [],
+                            "pricingTier": "Free",
+                            "subPlan": null
+                        }
+                    },
+                    "authentication": {
+                        "type": "ManagedServiceIdentity"
+                    }
+                },
+                "runAfter": {
+                    "For_each": [
+                        "Succeeded"
+                    ]
+                },
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                }
+            },
+            "HTTP_get_all_SA": {
+                "type": "Http",
+                "inputs": {
+                    "uri": "https://management.azure.com/providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
+                    "method": "POST",
+                    "body": "@outputs('Compose_Get_all_SA_query')",
+                    "authentication": {
+                        "type": "ManagedServiceIdentity"
+                    }
+                },
+                "runAfter": {
+                    "Compose_Get_all_SA_query": [
+                        "Succeeded"
+                    ]
+                },
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                }
+            },
+            "Parse_JSON_get_the_array": {
+                "type": "ParseJson",
+                "inputs": {
+                    "content": "@body('HTTP_get_all_SA')",
+                    "schema": {
+                        "properties": {
+                            "count": {
+                                "type": "integer"
+                            },
+                            "data": {
+                                "properties": {
+                                    "columns": {
+                                        "items": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "name",
+                                                "type"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "rows": {
+                                        "items": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "facets": {
+                                "type": "array"
+                            },
+                            "resultTruncated": {
+                                "type": "string"
+                            },
+                            "totalRecords": {
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "runAfter": {
+                    "HTTP_get_all_SA": [
+                        "Succeeded"
+                    ]
+                }
+            }
+        },
+        "outputs": {},
+        "parameters": {
+            "SubId": {
+                "defaultValue": "8af392db-423c-49d9-8c34-cdafbe702315",
+                "type": "String"
+            },
+            "$connections": {
+                "type": "Object",
+                "defaultValue": {}
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {}
+        }
+    }
+}

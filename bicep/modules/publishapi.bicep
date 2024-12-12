@@ -50,6 +50,9 @@ resource backends 'Microsoft.ApiManagement/service/backends@2023-09-01-preview' 
         }
       ]
     } : null
+    credentials: {
+      query: []
+    }
   }
 }
 
